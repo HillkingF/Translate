@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Login">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="117.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="277.0" minWidth="10.0" prefWidth="249.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="133.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+
+    <children>
+        <Label prefHeight="32.0" prefWidth="154.0" text="阅读翻译器" textAlignment="CENTER" GridPane.columnIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0" />
+            </GridPane.margin>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font name="System Bold Italic" size="28.0" />
+            </font>
+        </Label>
+
+
+        <Label prefHeight="0.0" prefWidth="46.0" text="账 号" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <opaqueInsets>
+                <Insets left="35.0" />
+            </opaqueInsets>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="System Italic" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="tfAccount" prefHeight="40.0" prefWidth="266.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+
+        <Label prefHeight="0.0" prefWidth="46.0" text="密 码" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <opaqueInsets>
+                <Insets left="35.0" />
+            </opaqueInsets>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <PasswordField fx:id="pfPassword" prefHeight="40.0" prefWidth="266.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+
+        <Label fx:id="lbHint" prefHeight="24.0" prefWidth="85.0" GridPane.rowIndex="3" />
+        <Button fx:id="btnSignUp" mnemonicParsing="false" onAction="#SignUp" prefHeight="41.0" prefWidth="70.0" text="注册" textFill="#0f38a1" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <!-- onAction="#SignUp" 这句话为按钮添加了事件点击的方法，在main类中有  SignUp方法，方法中写入了跳转到下一页的代码  -->
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="btnSignIn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#SignIn" prefHeight="41.0" prefWidth="70.0" text="登录" textAlignment="RIGHT" textFill="#0f38a1" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <GridPane.margin>
+                <Insets left="110.0" />
+            </GridPane.margin>
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+
+    </children>
+</GridPane>
