@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.jndi.toolkit.url.UrlUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import page.homePage;
 
 import java.io.*;
 import java.net.URL;
@@ -44,6 +44,8 @@ public class Login extends Application {
     }
 
     public void SignIn(ActionEvent actionEvent) {
+
+
         if (tfAccount.getText().equals("") || pfPassword.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号密码不能为空！");
             alert.setHeaderText(null);
@@ -62,6 +64,7 @@ public class Login extends Application {
             }).start();
 
         }
+
     }
 
 
@@ -110,13 +113,21 @@ public class Login extends Application {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 System.out.println("登陆成功！");
+                /*
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "登陆成功！");
                 alert.setHeaderText("");
                 alert.showAndWait();
-
+                */
                 /*
                 在这里扩展登陆成功后的页面跳转
                  */
+                //跳转到注册界面
+                new homePage().showWindow();
+
+                //销毁当前窗口
+                stage = (Stage) btnSignIn.getScene().getWindow();
+                stage.close();
+
 
             } else if (sb.toString().equals(Constant.FLAG_FAIL)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "输入错误！");

@@ -1,34 +1,21 @@
-package main;
+package page;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 
-import org.apache.poi.POIXMLDocument;
-import org.apache.poi.POIXMLTextExtractor;
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
@@ -37,7 +24,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class homePage extends Application {
+
+    Stage stage = new Stage();
 
   @Override
   public void start(Stage primaryStage) {
@@ -96,7 +85,7 @@ public class Main extends Application {
     
 
     menuBar.getMenus().add(fileMenu);
-    Scene scene = new Scene(root, 1000, 800, Color.WHITE);
+    Scene scene = new Scene(root, 600, 400, Color.WHITE);
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -138,4 +127,8 @@ public class Main extends Application {
   public static void main(String[] args) {
     launch(args);
   }
+
+    public void showWindow() throws IOException {
+        start(stage);
+    }
 }
