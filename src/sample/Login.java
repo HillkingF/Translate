@@ -54,7 +54,12 @@ public class Login extends Application {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     try {
-                         Login();
+
+                        //下面这三句暂时用于成员调试续写
+                        new homePage().showWindow();
+                        stage = (Stage) btnSignIn.getScene().getWindow();
+                        stage.close();
+                        // Login();  这个调用暂时屏蔽，以便成员登录查看
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
                         alert.setHeaderText(null);
