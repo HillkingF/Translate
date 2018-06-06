@@ -34,7 +34,7 @@ public class Login extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample/Login.fxml"));
         primaryStage.setTitle("文档翻译器");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 400, 350));
         primaryStage.show();
     }
 

@@ -10,6 +10,6 @@ public class Constant {
     public static final String FLAG_FORGET_PASSWORD = "500";
 
     //连接至远程服务器
-    public static String URL_Register = "http://localhost:8080/TranServlet/registerServlet?";
-    public static String URL_Login = "http://localhost:8080/TranServlet/loginServlet?";
+    public static String URL_Register = "http://127.0.0.1:8080/TranServlet/registerServlet?";
+    public static String URL_Login = "http://127.0.0.1:8080/TranServlet/loginServlet?";
 }

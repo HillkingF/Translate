@@ -37,7 +37,7 @@ public class Register extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample/Register.fxml"));
         primaryStage.setTitle("注册");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 400, 350));
         primaryStage.show();
     }
 
@@ -52,7 +52,12 @@ public class Register extends Application {
             alert.setHeaderText(null);
             alert.showAndWait();
         } else if (!tfAccount.getText().matches("[a-zA-Z0-9]{3,10}") || !pfPassword.getText().matches("[a-zA-Z0-9]{3,10}")) {
-            lbHint.setText("填写不符合规则");
+           // lbHint.setText("填写不符合规则！");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "填写不符合规则！" +
+                    "请输入3到10位字母数字");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+
         } else if (tfAccount.getText().matches("[a-zA-Z0-9]{3,10}") && pfPassword.getText().matches("[a-zA-Z0-9]{3,10}")) {
                 lbHint.setText("");
                 new Thread(() -> {
