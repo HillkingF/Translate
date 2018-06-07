@@ -1,5 +1,6 @@
 package page;
 import java.awt.BorderLayout;
+import translate.TranslateWord;
 import java.awt.Dialog;
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -119,14 +120,16 @@ public class  homePage {
                 
                 ta.addMouseListener(new MouseAdapter() {
                 	
-					
+                	Dialog d1 = new Dialog(f, "注释" , false);
+				TextArea tt=new TextArea();	
                 
             		public void mouseReleased(MouseEvent e) {
                 		
             			String s=ta.getSelectedText();
+            			String lastResult = null;
           
             			//System.out.println(s);
-            			Dialog d1 = new Dialog(f, "注释" , false);
+            			
             			
             			
             			d1.setBounds(20 , 30 , 300, 400);
@@ -134,11 +137,22 @@ public class  homePage {
             			
             			
             			
-            			TextArea tt=new TextArea();
-            			d1.add(tt);
-            			tt.setText(s);
             			
-            			tt.append("\ngggg");
+            			d1.add(tt);
+            			tt.setText("");
+            			tt.append(s);
+            			if (s != null) {
+    						lastResult = TranslateWord.connect(s);
+    	            			//System.out.println(s);
+    	            			//System.out.println(lastResult);
+                			}
+            			else {
+							d1.setVisible(false);
+						}
+            			if (lastResult!=null) {
+            				
+							tt.append("\n"+lastResult);
+						}
             			//d1.add(zhushi);
             			d1.addWindowListener(new WindowAdapter() {
             	            public void windowClosing(WindowEvent evt) {
