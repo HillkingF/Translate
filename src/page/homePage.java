@@ -32,6 +32,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
 
@@ -219,7 +220,16 @@ public class  homePage {
     }
 
     public static void main(String[] args) {
-        new homePage();
+    	 try {
+             ////////////////////////---------------------------------- select Look and Feel(下面就是要改变的地方了)
+             JFrame.setDefaultLookAndFeelDecorated(true);
+             UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+             ////////////////////////---------------------------------- start application
+             new homePage();
+         }
+         catch (Exception ex) {
+             ex.printStackTrace();
+         }
     }
     public String readWord(String path) {  
         String buffer = "";  
