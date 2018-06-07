@@ -54,7 +54,7 @@ public class  homePage {
     private FileDialog openDia, saveDia;// 定义“打开、保存”对话框
     private File file;//定义文件
     
-    homePage() {
+    public homePage() {
         init();
     }
 
@@ -218,6 +218,7 @@ public class  homePage {
     
     public void showWindow() {
     	 f.toFront();
+    	
     }
    
 
