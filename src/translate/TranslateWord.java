@@ -5,12 +5,17 @@ import java.util.regex.Pattern;
 
 public class TranslateWord {
 
-	
 	public static String connect(String word) {
 		
 		String url = "http://www.iciba.com/"+word;
+		System.out.println(url);
 		String result = ConnectionUtil.Connect(url);
-		return analyze(result);
+		if (word.length()<20) {
+			return analyze(result);
+		}else {
+			return analyzeSentence(result);
+		}
+		
 	}
 	public static String analyze(String result) {
 		
@@ -40,6 +45,17 @@ public class TranslateWord {
 				lastResult = lastResult+ciyi[0]+"\n";
 				//System.out.println(ciyi[0]);
 			}
+		}
+		return lastResult;
+	}
+	public static String analyzeSentence(String result) {
+		String lastResult = " ";
+		Pattern juziPattern = Pattern.compile("<div style=\"width: 580px; margin-top: 15px; font-size: 15px; line-height: 24px; color: #333333;\">(.*?)</div>");
+		Matcher juziMatcher = juziPattern.matcher(result);
+		while (juziMatcher.find()) {
+			String[] juzi = juziMatcher.group().substring(97).split("<");
+			System.out.println(juzi[0]);
+			lastResult = lastResult+juzi[0]+"\n";
 		}
 		return lastResult;
 	}
