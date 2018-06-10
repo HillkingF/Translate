@@ -47,9 +47,9 @@ public class Login extends Application {
 
 
         if (tfAccount.getText().equals("") || pfPassword.getText().equals("")) {
-          //  Alert alert = new Alert(Alert.AlertType.ERROR, "账号密码不能为空！");
-         //   alert.setHeaderText(null);
-          //  alert.showAndWait();
+          Alert alert = new Alert(Alert.AlertType.ERROR, "账号密码不能为空！");
+          alert.setHeaderText(null);
+          alert.showAndWait();
         } else{
             new Thread(() -> {
                 Platform.runLater(() -> {
@@ -61,9 +61,9 @@ public class Login extends Application {
                         stage.close();
                         // Login();  这个调用暂时屏蔽，以便成员登录查看
                     } catch (Exception e) {
-                      //  Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
-                      //  alert.setHeaderText(null);
-                     //   alert.showAndWait();
+                      Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
+                      alert.setHeaderText(null);
+                      alert.showAndWait();
                     }
                 });
             }).start();
