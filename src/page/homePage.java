@@ -1,7 +1,11 @@
 package page;
 import java.awt.BorderLayout;
+import java.awt.Button;
+
+import translate.TranslateWord;
 import java.awt.Dialog;
 import java.awt.FileDialog;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Menu;
@@ -9,6 +13,7 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.ScrollPane;
 import java.awt.TextArea;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -27,10 +32,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import javax.swing.Box;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
 
@@ -76,7 +85,7 @@ public class  homePage {
         f.add(sp);
         
         fileMenu = new Menu("file");// 创建“文件”菜单
-       
+        
         openItem = new MenuItem("open");// 创建“打开"菜单项
         saveItem = new MenuItem("save");// 创建“保存"菜单项
         closeItem = new MenuItem("exit");// 创建“退出"菜单项
@@ -84,11 +93,12 @@ public class  homePage {
         fileMenu.add(openItem);// 将“打开”菜单项添加到“文件”菜单上
         fileMenu.add(saveItem);// 将“保存”菜单项添加到“文件”菜单上
         fileMenu.add(closeItem);// 将“退出”菜单项添加到“文件”菜单上
-
+        fileMenu.setFont(new Font("",1,10));
+     
         bar.add(fileMenu);// 将文件添加到菜单栏上
-
+      
         f.setMenuBar(bar);// 将此窗体的菜单栏设置为指定的菜单栏。
-        
+       
         openDia = new FileDialog(f, "打开", FileDialog.LOAD);
         saveDia = new FileDialog(f, "保存", FileDialog.SAVE);
        
@@ -115,31 +125,61 @@ public class  homePage {
                 String content = readWord(path);          
                 ta.setText(content);
                 
-                
+              int i=  ta.getSelectionStart();
+              int j=  ta.getSelectionEnd();
                 
                 ta.addMouseListener(new MouseAdapter() {
                 	
-					
-                
+                	JDialog d1 = new JDialog(f, "注释" , false);
+				    TextArea tt=new TextArea();	
+				    
+				    
+				    TextField tf=new TextField();
             		public void mouseReleased(MouseEvent e) {
                 		
             			String s=ta.getSelectedText();
+            			String lastResult = null;
           
-            			//System.out.println(s);
-            			Dialog d1 = new Dialog(f, "注释" , false);
+            		
+            			
             			
             			
             			d1.setBounds(20 , 30 , 300, 400);
-            			d1.setVisible(true);
+            			
+            			           			
+            			d1.setVisible(false);
+            			Button b1=new Button("replace");
+            			Button b2=new Button("recover");
+            			Box box=Box.createHorizontalBox();
+            			box.add(b1);
+            			box.add(b2);
+            		//	b.setFont(new Font("",1,30));
+            			//b.setSize(100, 100);
+            			d1.getContentPane().add(tf,BorderLayout.PAGE_START);
+            			d1.getContentPane().add(tt,BorderLayout.CENTER);
+            			d1.getContentPane().add(box,BorderLayout.PAGE_END);       
+            			tt.setText("");
+            			tf.setText("");
+            			tf.setText(s);
             			
             			
+            			if (s != null) {
+    						lastResult = TranslateWord.connect(s);
+    						d1.setVisible(true);
+    	            			
+                			}
             			
-            			TextArea tt=new TextArea();
-            			d1.add(tt);
-            			tt.setText(s);
-            			
-            			tt.append("\ngggg");
-            			//d1.add(zhushi);
+            			if (lastResult!=null) {
+            				
+							tt.setText("\n"+lastResult);
+							b1.addMouseListener(new MouseAdapter() {
+								public void mouseReleased(MouseEvent e) {
+								String th=tt.getSelectedText().toString();//存储替换的译文
+								
+								}
+							});
+						}
+            		
             			d1.addWindowListener(new WindowAdapter() {
             	            public void windowClosing(WindowEvent evt) {
             	               d1.setVisible(false);
@@ -205,7 +245,16 @@ public class  homePage {
     }
 
     public static void main(String[] args) {
-        new homePage();
+    	try {
+            ////////////////////////---------------------------------- select Look and Feel(下面就是要改变的地方了)
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            ////////////////////////---------------------------------- start application
+            new homePage();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     public String readWord(String path) {  
         String buffer = "";  
