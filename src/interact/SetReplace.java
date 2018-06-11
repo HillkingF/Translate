@@ -1,6 +1,6 @@
 package interact;
 
-import sample.Constant;
+import enroll.Constant;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

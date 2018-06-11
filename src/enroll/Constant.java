@@ -1,4 +1,4 @@
-package sample;
+package enroll;
 
 public class Constant {
 

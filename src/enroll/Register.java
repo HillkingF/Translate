@@ -1,4 +1,4 @@
-package sample;
+package enroll;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,7 +34,7 @@ public class Register extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample/Register.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("enroll/Register.fxml"));
         primaryStage.setTitle("注册");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
         primaryStage.setScene(new Scene(root, 400, 350));

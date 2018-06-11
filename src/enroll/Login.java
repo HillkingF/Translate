@@ -1,4 +1,4 @@
-package sample;
+package enroll;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,7 +31,7 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("enroll/Login.fxml"));
         primaryStage.setTitle("文档翻译器");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
         primaryStage.setScene(new Scene(root, 400, 350));

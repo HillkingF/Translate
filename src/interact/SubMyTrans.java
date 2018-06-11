@@ -1,6 +1,6 @@
 package interact;   //交互包--这个包中放的是前端与后端单词交互的所有类
 
-import sample.Constant;
+import enroll.Constant;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
