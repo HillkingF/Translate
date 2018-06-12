@@ -37,6 +37,7 @@ public class TranslateCallableThread implements Callable<String> {
     public static String analyzeSentence(String result) {
 		String lastResult = " ";
 		Pattern juziPattern = Pattern.compile("<div style=\"width: 580px; margin-top: 15px; font-size: 15px; line-height: 24px; color: #333333;\">(.*?)</div>");
+
 		//Pattern juziPattern = Pattern.compile("<span class=\"\">(.*?)</span>");
 		Matcher juziMatcher = juziPattern.matcher(result);
 		while (juziMatcher.find()) {
