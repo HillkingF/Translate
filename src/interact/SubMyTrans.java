@@ -26,6 +26,7 @@ public class SubMyTrans {
             URL url = new URL(Constant.URL_MyTranslation + "account=" + account + "&" +
                     "word=" + word + "&" + "translation=" + translation );
 
+            System.out.println(account+"jihao"+word+translation);
             //接收servlet返回值，是字节
             InputStream is = url.openStream();
 
@@ -56,12 +57,13 @@ public class SubMyTrans {
 
 
     //主方法用于测试
+/*
     public static void main(String[] args){
 
         new SubMyTrans("111","word","danci").submit();
         //System.out.println(All);
 
     }
-
+*/
 
 }

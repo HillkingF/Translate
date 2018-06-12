@@ -19,13 +19,17 @@ import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-//import page.Home;
+import interact.SubMyTrans;
+import page.Home;
+import interact.SubMyTrans;
 
 public class YiwenPage{
 	JFrame f = new JFrame("my window");// 创建窗体对象
 	JDialog d1 = new JDialog(f, "注释" , false);
 	 String str;
 	 String w;
+	 String account;
+	 String myTranslate;
 	//子界面上方，显示单词
 	TextField tf=new TextField();
 	//子界面中间，显示译文
@@ -60,11 +64,8 @@ public class YiwenPage{
 	Button b1=new Button("replace");
 	Button b2=new Button("recover");
 	Button b3=new Button("create");
-	
-	
-	
-	
-	 public void init() {
+
+	public void init() {
 		 //设置边框与标题
 		 tt.setBorder(tb1);
 		 myBox.setBorder(tb2);
@@ -104,10 +105,11 @@ public class YiwenPage{
 		}
 	 
 	 //设置子界面显示译文	 
-	 public void display(String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
+	 public void display(String account,String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
 		 	 
 		 init();	
 		 if(word!=null) {
+		 	this.account=account;
 			 w=word;
 				//显示子界面
 			    d1.toFront();
@@ -139,6 +141,7 @@ public class YiwenPage{
 	
 	 //设置按钮监听器
 	public void listen(JTextPane ta)  {
+
 		
 		 b1.addMouseListener(new MouseAdapter() {
     		 public void mouseReleased(MouseEvent e) {
@@ -188,13 +191,19 @@ public class YiwenPage{
     	 );
 		 
 		 b3.addMouseListener(new MouseAdapter() {
+
 				
 				public void mouseReleased(MouseEvent e) {
 					
 					if(myInput.getText()!=null) {
 						tmy.setText(myInput.getText());
+						myTranslate=myInput.getText();
 						myInput.setText("");
-						
+
+						System.out.println(account+w+myTranslate);
+
+
+
 					}
 					
 				}
@@ -208,5 +217,6 @@ public class YiwenPage{
 	
 	    
 	 }
+
 	
 }

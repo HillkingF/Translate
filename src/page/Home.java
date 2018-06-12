@@ -1,6 +1,7 @@
 package page;
 
 import translate.*;
+import page.YiwenPage;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FileDialog;
@@ -34,26 +35,28 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class Home {
+    private String w;
     private String account;
-private JFrame jf;
-//private BorderLayout bl;
-//最上方的菜单栏
-private JMenu fileMenu;
-private JMenuItem openItem;
-private JMenuItem saveItem;
-private JMenuItem exitItem;
-private JMenuBar bar;
-private Choice setF;
-private JButton setB;
-private FileDialog openDia, saveDia;
-private File file;
+    private JFrame jf;
+    //private BorderLayout bl;
+    //最上方的菜单栏
+    private JMenu fileMenu;
+    private JMenuItem openItem;
+    private JMenuItem saveItem;
+    private JMenuItem exitItem;
+    private JMenuBar bar;
+    private Choice setF;
+    private JButton setB;
+    private FileDialog openDia, saveDia;
+   // private File file;
+    //中间文本显示
+    private JScrollPane sp;
+    private JTextPane txt;
+    private StyledDocument doc;
+    private  SimpleAttributeSet attributeSet;
 
-//中间文本显示
-private JScrollPane sp;
-private JTextPane txt;
-private StyledDocument doc;
-private  SimpleAttributeSet attributeSet;
-public void init() {
+
+    public void init() {
 	//窗体处理
     jf=new JFrame("英文翻译器");
 	jf.setBounds(300, 100, 650, 600);
@@ -132,7 +135,7 @@ private void myEvent() {
             }
             public void mouseReleased(MouseEvent e) {
             	//w是单词
-            	String w=txt.getSelectedText();
+                w=txt.getSelectedText();
             	if (w != null) {
 					lastResult = TranslateWord.connect(w);
             			
@@ -145,8 +148,9 @@ private void myEvent() {
                 
     			
         		if(w!=null) {
-        			yiwen=new YiwenPage();    
-        			yiwen.display(w,s1,s2,s3,s4);
+        			yiwen=new YiwenPage();
+        			//System.out.println("zheg "+account );
+        			yiwen.display(account,w,s1,s2,s3,s4);
         			yiwen.listen(txt);
         		      
         			
