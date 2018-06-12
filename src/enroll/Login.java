@@ -30,6 +30,9 @@ public class Login extends Application {
     @FXML
     private Button btnSignUp;
 
+    public String getaccount;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("enroll/Login.fxml"));
@@ -55,13 +58,6 @@ public class Login extends Application {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     try {
-
-                        //下面这三句暂时用于成员调试续写
-                        /*
-                        new Home().showWindow();
-                        stage = (Stage) btnSignIn.getScene().getWindow();
-                        stage.close();
-                        */
                        Login();  ///这个调用暂时屏蔽，以便成员登录查看
                     } catch (Exception e) {
                       Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
@@ -95,6 +91,7 @@ public class Login extends Application {
      * 登录模块
      */
     public void Login() {
+
         try {
             // 获取账号、单词和提交的译文
             String account = tfAccount.getText();
@@ -121,16 +118,13 @@ public class Login extends Application {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 System.out.println("登陆成功！");
-                /*
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "登陆成功！");
-                alert.setHeaderText("");
-                alert.showAndWait();
-                */
+                getaccount = account;
+
                 /*
                 在这里扩展登陆成功后的页面跳转
                  */
                 //跳转到注册界面
-                new Home().showWindow();
+                new Home().showWindow(getaccount);
 
                 //销毁当前窗口
                 stage = (Stage) btnSignIn.getScene().getWindow();

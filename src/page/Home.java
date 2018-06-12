@@ -34,6 +34,7 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class Home {
+    private String account;
 private JFrame jf;
 //private BorderLayout bl;
 //最上方的菜单栏
@@ -257,10 +258,11 @@ public String readWord(String path) {
     return buffer;  
 }  
 
-public void showWindow() {
-    init();
+//用于登录界面的登录调用
+public void showWindow( String getaccount) {
+     init();
 	 jf.toFront();
-
+	 account = getaccount;
 }
 
 
