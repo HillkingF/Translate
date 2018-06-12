@@ -12,3 +12,12 @@ build
 /build
 
 
+/bin/
+.classpath
+.settings/org.eclipse.core.resources.prefs
+.project
+src/page/homePage.java
+src/replace/Recover.java
+src/replace/Replace.java
+src/page/homePage.java
+src/page/homePage.java
