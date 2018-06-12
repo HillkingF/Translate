@@ -1,13 +1,9 @@
 package page;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
+import translate.*;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FileDialog;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,14 +17,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.SimpleAttributeSet;
@@ -130,13 +124,20 @@ private void myEvent() {
     		doc.setCharacterAttributes(0 , content.length() , attributeSet, true);
             
             txt.addMouseListener(new MouseAdapter() {  
+            	String lastResult = null;
             YiwenPage yiwen=new YiwenPage();  
             public void mousePressed(MouseEvent e) {
             	yiwen.f.dispose();
             }
             public void mouseReleased(MouseEvent e) {
+            	//w是单词
             	String w=txt.getSelectedText();
-            	String s1="金山词霸的翻译";
+            	if (w != null) {
+					lastResult = TranslateWord.connect(w);
+            			
+        			}
+            	//s1金山词霸的翻译
+            	String s1=lastResult;
             	String s2="";		
             	String s3="其他用户的翻译";
             	String s4="上一次选中的翻译";
