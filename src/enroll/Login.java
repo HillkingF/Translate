@@ -9,7 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import page.homePage;
+import page.Home;
+
 
 import java.io.*;
 import java.net.URL;
@@ -56,10 +57,12 @@ public class Login extends Application {
                     try {
 
                         //下面这三句暂时用于成员调试续写
-                        new homePage().showWindow();
+                        /*
+                        new Home().showWindow();
                         stage = (Stage) btnSignIn.getScene().getWindow();
                         stage.close();
-                       // Login();  ///这个调用暂时屏蔽，以便成员登录查看
+                        */
+                       Login();  ///这个调用暂时屏蔽，以便成员登录查看
                     } catch (Exception e) {
                       Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
                       alert.setHeaderText(null);
@@ -127,7 +130,7 @@ public class Login extends Application {
                 在这里扩展登陆成功后的页面跳转
                  */
                 //跳转到注册界面
-                new homePage().showWindow();
+                new Home().showWindow();
 
                 //销毁当前窗口
                 stage = (Stage) btnSignIn.getScene().getWindow();
