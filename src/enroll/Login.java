@@ -59,7 +59,7 @@ public class Login extends Application {
                         new homePage().showWindow();
                         stage = (Stage) btnSignIn.getScene().getWindow();
                         stage.close();
-                        // Login();  这个调用暂时屏蔽，以便成员登录查看
+                       // Login();  ///这个调用暂时屏蔽，以便成员登录查看
                     } catch (Exception e) {
                       Alert alert = new Alert(Alert.AlertType.ERROR, "登陆失败！");
                       alert.setHeaderText(null);
@@ -135,9 +135,9 @@ public class Login extends Application {
 
 
             } else if (sb.toString().equals(Constant.FLAG_FAIL)) {
-              //  Alert alert = new Alert(Alert.AlertType.ERROR, "输入错误！");
-             //   alert.setHeaderText("");
-              //  alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "输入错误！");
+                alert.setHeaderText("");
+                alert.showAndWait();
             }
 
         } catch (Exception e) {
