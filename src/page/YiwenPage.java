@@ -1,12 +1,8 @@
 package page;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,14 +13,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import page.homePage;
+//import page.Home;
 
 public class YiwenPage{
 	JFrame f = new JFrame("my window");// 创建窗体对象
