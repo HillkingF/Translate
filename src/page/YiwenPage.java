@@ -160,12 +160,9 @@ public class YiwenPage{
 						tmy.setText(myInput.getText());
 						myTranslate=myInput.getText();
 						myInput.setText("");
-						new Thread(new Runnable(){
-							@Override
-							public void run() {
-								new SubMyTrans(account,account_word,myTranslate).submit();
-							}
-						});
+
+						new SubMyTrans(account,account_word,myTranslate).run();
+
 						//System.out.println(account+account_word+myTranslate);
 					}
 				}
