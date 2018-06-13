@@ -1,9 +1,8 @@
 package page;
 
 import translate.*;
-import java.awt.Choice;
-import java.awt.Color;
-import java.awt.FileDialog;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,14 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -41,8 +33,12 @@ public class Home {
     private JMenuItem saveItem;
     private JMenuItem exitItem;
     private JMenuBar bar;
-    private Choice setF;
+    //选择框设置字体与字号
+    private JComboBox<String> setF;
+    private JComboBox<String> setS;
     private JButton setB;
+    private JButton setI;
+    private JButton setU;
     private FileDialog openDia, saveDia;
    // private File file;
     //中间文本显示
@@ -50,13 +46,32 @@ public class Home {
     private JTextPane txt;
     private StyledDocument doc;
     private  SimpleAttributeSet attributeSet;
-
+    //控制按钮交替进行
+    private boolean b;
+    private boolean i;
+    private boolean u;
 
     public void init() {
+        //字体
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        final String fontName[] = ge.getAvailableFontFamilyNames(); // 获取系统的本地字体
+        String fontSize[]=new String[51];
+        int j=0;
+        for(int i=10;i<=60;i++)
+        {
+            fontSize[j]=i+"";
+            j++;
+
+        }
 	//窗体处理
     jf=new JFrame("英文翻译器");
 	jf.setBounds(300, 100, 650, 600);
 	sp=new JScrollPane();
+        //设置图标
+        String path="/img/logal.png";
+        Toolkit tool=jf.getToolkit(); //得到一个Toolkit对象
+        Image myimage=tool.getImage(this.getClass().getResource(path)); //由tool获取图像
+        jf.setIconImage(myimage);
 	//菜单处理	
 	fileMenu=new JMenu("文件");
 	openItem=new JMenuItem("打开");
@@ -65,20 +80,25 @@ public class Home {
 	fileMenu.add(openItem);
 	fileMenu.add(saveItem);
 	fileMenu.add(exitItem);
-	setF=new Choice();
-	setB=new JButton("设置字体");
-	bar =new JMenuBar();
 
-	//setB.setFont(new Font("宋体",0,10));
-	for(int i=10;i<=60;)
-	{
-		setF.add(i+"");
-		i=i+2;
-	}
-	
-	bar.add(fileMenu);
-	bar.add(setB);
-	bar.add(setF);
+        //设置选择框
+        setS= new JComboBox<>(fontSize);//设置字体大小
+        setF= new JComboBox<>(fontName);//设置字体
+        setB=new JButton("B");
+        setI=new JButton("I");
+        setU=new JButton("U");
+        bar =new JMenuBar();
+        //初始化
+        b=false;
+        i=false;
+        u=false;
+
+        bar.add(fileMenu);
+        bar.add(setB);
+        bar.add(setI);
+        bar.add(setU);
+        bar.add(setF);
+        bar.add(setS);
 	jf.setJMenuBar(bar);
 	jf.add(sp);
 	//中间文本处理
@@ -86,10 +106,19 @@ public class Home {
 	doc = txt.getStyledDocument();
 	attributeSet= new SimpleAttributeSet();
 	StyleConstants.setForeground(attributeSet, Color.BLACK);
-	StyleConstants.setFontSize(attributeSet, 15);
-	StyleConstants.setFontFamily(attributeSet, "Dialog");
+	StyleConstants.setFontSize(attributeSet, 18);
+	StyleConstants.setFontFamily(attributeSet, "宋体");
 	sp.setViewportView(txt);
-	
+        //字体设置
+        setB.setBorder(BorderFactory.createRaisedBevelBorder());
+        setI.setBorder(BorderFactory.createRaisedBevelBorder());
+        setU.setBorder(BorderFactory.createRaisedBevelBorder());
+
+        setB.setPreferredSize(new Dimension(25,30));
+        setI.setPreferredSize(new Dimension(25,30));
+        setU.setPreferredSize(new Dimension(25,30));
+        setS.setSelectedItem("18");
+        setF.setSelectedItem("宋体");
 	//对话框处理
 	openDia = new FileDialog(jf, "打开", FileDialog.LOAD);
     saveDia = new FileDialog(jf, "保存", FileDialog.SAVE);
@@ -113,8 +142,8 @@ private void myEvent() {
 
         	txt.setText(content);
     		doc.setCharacterAttributes(0 , content.length() , attributeSet, true);
-            txt.addMouseListener(new MouseAdapter() {  
-            	String lastResult = null;
+            txt.addMouseListener(new MouseAdapter() {
+                String lastResult = null;
             YiwenPage yiwen=new YiwenPage();  
             public void mousePressed(MouseEvent e) {
             	yiwen.f.dispose();
@@ -180,12 +209,75 @@ private void myEvent() {
         }
     });
     setB.addMouseListener(new MouseAdapter() {
-		 public void mouseClicked(MouseEvent e) {
-			 StyleConstants.setFontSize(attributeSet, Integer.parseInt(setF.getSelectedItem()));
-			 doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
-	     }
-    }
+
+                              public void mouseClicked(MouseEvent e) {
+                                  if(b==false)			{
+                                      StyleConstants.setBold(attributeSet, true);
+                                      // setB.setBackground(Color);
+                                      setB.setBorder(BorderFactory.createLoweredBevelBorder());
+
+                                      b=true;
+                                  }
+                                  else {
+                                      StyleConstants.setBold(attributeSet, false);
+                                      // setB.setBackground(Color.WHITE);
+                                      setB.setBorder(BorderFactory.createRaisedBevelBorder());
+
+                                      b=false;
+                                  }
+
+                                  doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
+                              }
+                          }
     );
+    setI.addMouseListener(new MouseAdapter() {
+
+                              public void mouseClicked(MouseEvent e) {
+                                  if(i==false)			{
+                                      StyleConstants.setItalic(attributeSet, true);
+                                      setI.setBorder(BorderFactory.createLoweredBevelBorder());
+                                      i=true;
+                                  }
+                                  else {
+                                      StyleConstants.setItalic(attributeSet, false);
+                                      setI.setBorder(BorderFactory.createRaisedBevelBorder());
+                                      i=false;
+                                  }
+
+                                  doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
+                              }
+                          }
+    );
+    setU.addMouseListener(new MouseAdapter() {
+
+                              public void mouseClicked(MouseEvent e) {
+                                  if(u==false)			{
+                                      StyleConstants.setUnderline(attributeSet, true);
+                                      setU.setBorder(BorderFactory.createLoweredBevelBorder());
+                                      u=true;
+                                  }
+                                  else {
+                                      StyleConstants.setUnderline(attributeSet, false);
+                                      setU.setBorder(BorderFactory.createRaisedBevelBorder());
+                                      u=false;
+                                  }
+
+                                  doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
+
+
+                              }
+                          }
+    );
+    setF.addItemListener(e -> {  // ②
+        StyleConstants.setFontFamily(attributeSet, (String)setF.getSelectedItem());
+        doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
+
+    });
+    setS.addItemListener(e -> {  // ②
+        StyleConstants.setFontSize(attributeSet, setS.getSelectedIndex());
+        doc.setCharacterAttributes(0 , txt.getText().length() , attributeSet, true);
+
+    });
 }
 
 public String readWord(String path) {  
