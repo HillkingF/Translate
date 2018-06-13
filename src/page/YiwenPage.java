@@ -7,12 +7,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import interact.SetReplace;
 import interact.SubMyTrans;
 
 public class YiwenPage{
 	JFrame  f = new JFrame("my window");// 创建窗体对象
 	JDialog d1 = new JDialog(f, "注释" , false);
-	String str;
+	String str;   //选择的译文
 
 	private String account_word;
 	private String account;
@@ -149,6 +151,8 @@ public class YiwenPage{
 					int j=i+str.length();
 					ta.replaceSelection(str);
 					ta.select(i, j);
+					new SetReplace(account,account_word,str).run();
+
 				}	
     	 });
 
@@ -170,7 +174,6 @@ public class YiwenPage{
 
 						new SubMyTrans(account,account_word,myTranslate).run();
 
-						//System.out.println(account+account_word+myTranslate);
 					}
 				}
          });
