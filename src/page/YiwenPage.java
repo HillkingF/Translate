@@ -1,13 +1,11 @@
 package page;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.TextArea;
+import java.awt.Image;
 import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -17,24 +15,30 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import page.homePage;
-
+import interact.SubMyTrans;
+import page.Home;
+/*
+ * 需要添加滚动条
+ */
 public class YiwenPage{
 	JFrame f = new JFrame("my window");// 创建窗体对象
-	JDialog d1 = new JDialog(f, "注释" , false);
+	JDialog d1 = new JDialog(f, "翻译" , false);
 	 String str;
 	 String w;
+	 String account;
+	 String myTranslate;
 	//子界面上方，显示单词
-	TextField tf=new TextField();
+	JTextField tf=new JTextField();
 	//子界面中间，显示译文
 	Box vbox=Box.createVerticalBox();
+	 JScrollPane sp=new JScrollPane ();;
 		//(1)金山词霸译文
 		Border lb = BorderFactory.createLineBorder(Color.GRAY, 5);
 		TitledBorder tb1 = new TitledBorder(lb , "金山词霸翻译"
@@ -65,11 +69,13 @@ public class YiwenPage{
 	Button b1=new Button("replace");
 	Button b2=new Button("recover");
 	Button b3=new Button("create");
-	
-	
-	
-	
-	 public void init() {
+
+	public void init() {
+		//设置图标
+		String path="/img/logal.png";
+		Toolkit tool=d1.getToolkit(); //得到一个Toolkit对象
+		Image myimage=tool.getImage(this.getClass().getResource(path)); //由tool获取图像
+		d1.setIconImage(myimage);
 		 //设置边框与标题
 		 tt.setBorder(tb1);
 		 myBox.setBorder(tb2);
@@ -80,8 +86,11 @@ public class YiwenPage{
 		 tmy.setLineWrap(true);
 		 telse.setLineWrap(true);
 		 tlast.setLineWrap(true);
-		
-		 
+		//设置不可编辑
+		 tt.setEditable(false);
+		 tmy.setEditable(false);
+		 telse.setEditable(false);
+		 tlast.setEditable(false);
 		 //在布局中安排各组件顺序
 	
 		 myBox.add(myInput);
@@ -94,7 +103,11 @@ public class YiwenPage{
 		 vbox.createHorizontalStrut(5);
 		 vbox.add(tlast);
 		 vbox.createHorizontalStrut(5);
-			
+		
+		sp.setViewportView(vbox);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		 
 		 //子界面下方功能区按钮
 		 box.add(b1);
 		 box.add(b2);
@@ -102,17 +115,19 @@ public class YiwenPage{
 		 //子界面对话框设置布局
 		 d1.setBounds(100 , 100 , 500, 700);
 		 d1.getContentPane().add(tf,BorderLayout.PAGE_START);
-		 d1.getContentPane().add(vbox,BorderLayout.CENTER);
+		 //d1.getContentPane().add(vbox,BorderLayout.CENTER);
+		 d1.getContentPane().add(sp,BorderLayout.CENTER);
 		 d1.getContentPane().add(box,BorderLayout.PAGE_END);   
 	     d1.setVisible(false);	     	     
 	     
 		}
 	 
 	 //设置子界面显示译文	 
-	 public void display(String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
+	 public void display(String account,String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
 		 	 
 		 init();	
 		 if(word!=null) {
+		 	this.account=account;
 			 w=word;
 				//显示子界面
 			    d1.toFront();
@@ -144,6 +159,7 @@ public class YiwenPage{
 	
 	 //设置按钮监听器
 	public void listen(JTextPane ta)  {
+
 		
 		 b1.addMouseListener(new MouseAdapter() {
     		 public void mouseReleased(MouseEvent e) {
@@ -193,13 +209,21 @@ public class YiwenPage{
     	 );
 		 
 		 b3.addMouseListener(new MouseAdapter() {
+			
+
 				
 				public void mouseReleased(MouseEvent e) {
 					
+					
 					if(myInput.getText()!=null) {
 						tmy.setText(myInput.getText());
+						myTranslate=myInput.getText();
 						myInput.setText("");
-						
+						new Thread1().start();
+						System.out.println("b3事件中"+account+w+myTranslate);
+
+
+
 					}
 					
 				}
@@ -213,5 +237,12 @@ public class YiwenPage{
 	
 	    
 	 }
+	 class Thread1 extends Thread{
+			@Override
+			public void run() {
+				System.out.println("thread1类中："+account+w+myTranslate);
+				new SubMyTrans(account,w,myTranslate).submit();
+			}
+		}
 	
 }
