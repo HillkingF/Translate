@@ -1,24 +1,39 @@
 package interact;
 
 import enroll.Constant;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GetAll {
     private String account;
     private String word;
     private String AllString;
+    private String lastchoice;
+    private String selftrans;
+    private String othertrans;
+
+    private Pattern plastchoice;
+    private Pattern pselftrans;
+    private Pattern pothertrans;
+
+    private Matcher mlastchoice;
+    private Matcher mselftrans;
+    private Matcher mothertrans;
+
+    private StringBuffer reponse;
+
 
     public GetAll(String account,String word){
         super();
         this.account = account;
         this.word = word;
-    }
 
-    public String obtain(){
         try {
             //1.获取账号、单词和提交的译文,account word translation 三个字符串在上面定义，是从外部获取到的
 
@@ -37,32 +52,54 @@ public class GetAll {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-
-            // judge result ，页面显示的返回码是否是100（成功）
-            if (!sb.toString().equals("")) {
-
-                AllString = sb.toString();
-
-              //  System.out.println(AllString);
-
-            } else if (sb.toString().equals(Constant.FLAG_FAIL)) {
-                //在此功能中服务器返回的响应是一行字符串的集合
-
-
-            }
-
+            System.out.println(sb.toString());
+//            //替换
+//            plastchoice = Pattern.compile("(.*)(<last>)(.*)(</last>)(.*)");
+//            mlastchoice= plastchoice.matcher(sb);
+//            if (mlastchoice.find()){
+//                lastchoice = mlastchoice.group(3);
+//            }
+//            //自译
+//            pselftrans = Pattern.compile("(.*)(<selftrans>)(.*)(</selftrans>)(.*)");
+//            mselftrans= pselftrans.matcher(sb);
+//            if (mselftrans.find()){
+//                selftrans = mselftrans.group(3);
+//            }
+//            //他译
+//            pothertrans = Pattern.compile("(.*)(<othertrans>)(.*)(</othertrans>)(.*)");
+//            mothertrans= pothertrans.matcher(sb);
+//            if (mothertrans.find()){
+//                othertrans = mothertrans.group(3);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return AllString;
+    }
+
+
+    public String getreplace(){
+        return lastchoice;
+    }
+    public String getselftrans(){
+        return selftrans;
+    }
+
+    public String getothertrans() {
+        return othertrans;
     }
 
 
     //主方法用于测试能否从数据库中获得字符串，之后还要对字符串字段进行解析，以分割出翻译等
     public static void main(String[] args){
 
-        String All = new GetAll("111","word").obtain();
-        System.out.println(All);
+//        String a = new GetAll("111","page").getreplace();
+//        String b = new GetAll("111","page").getselftrans();
+//        String c = new GetAll("111","page").getothertrans();
+//        System.out.println("get替换"+a);
+//        System.out.println("getziyi"+b);
+//        System.out.println("zheshi他译"+c);
+
+
 
 
 
