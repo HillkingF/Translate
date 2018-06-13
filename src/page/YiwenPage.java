@@ -35,7 +35,7 @@ public class YiwenPage{
 	 String account;
 	 String myTranslate;
 	//子界面上方，显示单词
-	JTextField tf=new JTextField();
+	 JTextArea tf=new JTextArea();
 	//子界面中间，显示译文
 	Box vbox=Box.createVerticalBox();
 	 JScrollPane sp=new JScrollPane ();;
@@ -82,11 +82,13 @@ public class YiwenPage{
 		 telse.setBorder(tb3);
 		 tlast.setBorder(tb4);
 		 //设置自动换行
+		 tf.setLineWrap(true);
 		 tt.setLineWrap(true);
 		 tmy.setLineWrap(true);
 		 telse.setLineWrap(true);
 		 tlast.setLineWrap(true);
 		//设置不可编辑
+		 tf.setEditable(false);
 		 tt.setEditable(false);
 		 tmy.setEditable(false);
 		 telse.setEditable(false);
@@ -105,8 +107,8 @@ public class YiwenPage{
 		 vbox.createHorizontalStrut(5);
 		
 		sp.setViewportView(vbox);
-		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		 
 		 //子界面下方功能区按钮
 		 box.add(b1);
