@@ -1,5 +1,6 @@
 package page;
 
+import interact.GetAll;
 import translate.*;
 
 import java.awt.*;
@@ -9,10 +10,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.Expression;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.concurrent.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.SimpleAttributeSet;
@@ -50,6 +55,25 @@ public class Home {
     private boolean b;
     private boolean i;
     private boolean u;
+    //获取用户全部信息
+    private String getresponse;
+    private String lastchoice;
+    private String selftrans;
+    private String othertrans;
+
+    private Pattern plastchoice;
+    private Pattern pselftrans;
+    private Pattern pothertrans;
+
+    private Matcher mlastchoice;
+    private Matcher mselftrans;
+    private Matcher mothertrans;
+
+    private Future fcall;
+    ExecutorService pool = Executors.newFixedThreadPool(1);
+    Callable callable;
+
+
 
     public void init() {
         //字体
@@ -150,18 +174,34 @@ private void myEvent() {
             }
             public void mouseReleased(MouseEvent e) {
                 word=txt.getSelectedText();
-            	if (word != null) {
-					lastResult = TranslateWord.connect(word);
-        			}
+
+
+
             	//s1金山词霸的翻译
-            	String s1=lastResult;
+
             	String s2="";		
             	String s3="其他用户的翻译";
             	String s4="上一次选中的翻译";
 
+            	//获取用户的全部信息
         		if(word!=null) {
+                    lastResult = TranslateWord.connect(word);
+                    callable = new GetAll(account,word);
+                    fcall = pool.submit(callable);
+                    try{
+                       getresponse = fcall.get().toString();
+                      String [] allTranslation=getresponse.split(",");
+                        lastchoice=allTranslation[0];
+                        selftrans=allTranslation[1];
+                        othertrans=allTranslation[2];
+
+                    }catch(InterruptedException|ExecutionException e1){
+                        e1.printStackTrace();
+                    }
+
+
         			yiwen=new YiwenPage();
-        			yiwen.display(account,word,s1,s2,s3,s4);
+        			yiwen.display(account,word,lastResult,selftrans,othertrans,lastchoice);
         			yiwen.listen(txt);
         		}//if单词不为空
             }//主界面鼠标释放
