@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -35,6 +36,9 @@ public class Register extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("enroll/Register.fxml"));
+        String path="/img/logal.png";
+        Image myimage=new Image(this.getClass().getResource(path).toString(),100, 150, false, false);
+        primaryStage.getIcons().add(myimage);
         primaryStage.setTitle("注册");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
         primaryStage.setScene(new Scene(root, 400, 350));

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import page.Home;
 import java.io.*;
@@ -34,6 +35,10 @@ public class Login extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("enroll/Login.fxml"));
+        //设置图标
+        String path="/img/logal.png";
+        Image myimage=new Image(this.getClass().getResource(path).toString(),100, 150, false, false);
+        primaryStage.getIcons().add(myimage);
         primaryStage.setTitle("文档翻译器");
         primaryStage.setResizable(false);   //修改不可以改变窗口的大小
         primaryStage.setScene(new Scene(root, 400, 350));
