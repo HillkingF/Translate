@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import page.Home;
-
-
 import java.io.*;
 import java.net.URL;
 
@@ -42,14 +40,11 @@ public class Login extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
 
     public void SignIn(ActionEvent actionEvent) {
-
-
         if (tfAccount.getText().equals("") || pfPassword.getText().equals("")) {
           Alert alert = new Alert(Alert.AlertType.ERROR, "账号密码不能为空！");
           alert.setHeaderText(null);
@@ -66,9 +61,7 @@ public class Login extends Application {
                     }
                 });
             }).start();
-
         }
-
     }
 
 
@@ -129,7 +122,6 @@ public class Login extends Application {
                 //销毁当前窗口
                 stage = (Stage) btnSignIn.getScene().getWindow();
                 stage.close();
-
 
             } else if (sb.toString().equals(Constant.FLAG_FAIL)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "输入错误！");

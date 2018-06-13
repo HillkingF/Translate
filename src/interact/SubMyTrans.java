@@ -16,6 +16,7 @@ public class SubMyTrans {
         this.account = account;
         this.word = word;
         this.translation = translation;
+        System.out.println("在我的类中验证"+account+","+word+","+translation);
     }
 
     public void submit(){

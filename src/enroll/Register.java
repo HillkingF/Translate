@@ -72,8 +72,6 @@ public class Register extends Application {
                     });
                 }).start();
         }
-
-
     }
 
     public void btnback(ActionEvent actionEvent) throws IOException {
@@ -83,7 +81,7 @@ public class Register extends Application {
             stage = (Stage) certain.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -132,6 +130,4 @@ public class Register extends Application {
             e.printStackTrace();
         }
     }
-
-
 }
