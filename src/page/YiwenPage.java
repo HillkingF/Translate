@@ -102,7 +102,8 @@ public class YiwenPage{
 		}
 	 //设置子界面显示译文
 	public void display(String account,String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
-		 init();	
+
+	    init();
 		 if(word!=null) {
 		 	 this.account=account;
 			 this.account_word=word;
@@ -112,17 +113,17 @@ public class YiwenPage{
 			 //显示输出单词
 			 tf.setText(word);
 			 //显示金山词霸的翻译
-			 if(translateJS!=null) tt.setText(translateJS);
-			 else tt.setText("未查询到翻译结果");
+			 if(translateJS.equals("")||(translateJS==null)) tt.setText("未查询到翻译结果");
+			 else tt.setText(translateJS);
 			 //显示自定义的译文
-			 if(translateMy!=null) tmy.setText(translateMy);
-			 else tmy.setText("用户未曾自定义此单词的翻译");
+			 if(translateMy.equals("")||(translateMy!=null)) tmy.setText("用户未曾自定义此单词的翻译");
+			 else tmy.setText(translateMy);
 			 //显示其他用户的译文
-			 if(translateElse!=null) telse.setText(translateElse);
-			 else telse.setText("未查询到其他用户的 翻译");
+			 if(translateElse.equals("")||(translateElse!=null)) telse.setText("未查询到其他用户的翻译");
+			 else telse.setText(translateElse);
 			 //显示上一次替换的译文
-			 if(translateLast!=null) tlast.setText(translateLast);
-			 else tlast.setText("未选择过此单词的翻译");
+			 if(translateLast.equals("")||(translateLast!=null)) tlast.setText("未选择过此单词的翻译");
+			 else tlast.setText(translateLast);
 			}
 	 }
 	 //设置按钮监听器

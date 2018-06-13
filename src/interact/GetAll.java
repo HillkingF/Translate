@@ -26,6 +26,7 @@ public class GetAll implements Callable<String>{
     private Matcher mothertrans;
 
     private String allInfomation;
+    private String allothertrans;
 
     public GetAll(String account,String word){
         super();
@@ -77,8 +78,26 @@ public class GetAll implements Callable<String>{
                 othertrans = mothertrans.group(3);
                 }
 
+                if(!othertrans.equals("")&&(othertrans!=null)){
+                    //System.out.println("---"+othertrans);
+                    String[] allothertran = othertrans.split("<span>");
+                    for(int i = 0; i<allothertran.length; i++){
+                        if((allothertrans!=null)&&(!allothertrans.equals(""))){
+                            allothertrans = allothertrans+allothertran[i]+";";
+                        }else{
+                            allothertrans=allothertran[i]+";";
+
+                        }
+
+                    }
+                }else{
+
+                }
+
+
                 //封装所有的字符串信息
-                allInfomation = lastchoice+","+selftrans+","+othertrans;
+                allInfomation = lastchoice+","+selftrans+","+allothertrans;
+                System.out.println(allothertrans+",");
 
 
             } else if (sb.toString().equals(Constant.FLAG_FAIL)) {

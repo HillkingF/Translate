@@ -60,6 +60,7 @@ public class Home {
     private String lastchoice;
     private String selftrans;
     private String othertrans;
+    private String allothertrans;
 
     private Pattern plastchoice;
     private Pattern pselftrans;
@@ -188,16 +189,19 @@ private void myEvent() {
                     lastResult = TranslateWord.connect(word);
                     callable = new GetAll(account,word);
                     fcall = pool.submit(callable);
+
                     try{
                        getresponse = fcall.get().toString();
                       String [] allTranslation=getresponse.split(",");
                         lastchoice=allTranslation[0];
                         selftrans=allTranslation[1];
-                        othertrans=allTranslation[2];
-
+                        othertrans = allTranslation[2];
+                        System.out.println("jian"+othertrans);
                     }catch(InterruptedException|ExecutionException e1){
                         e1.printStackTrace();
                     }
+
+
 
 
         			yiwen=new YiwenPage();
