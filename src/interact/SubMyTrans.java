@@ -24,7 +24,8 @@ public class SubMyTrans {
 
             //2.传入含有中文字符的URL，需要将其进行编码
             URL url = new URL(Constant.URL_MyTranslation + "account=" + account + "&" +
-                    "word=" + word + "&" + "translation=" + translation );
+                    "word=" + java.net.URLEncoder.encode(word, "utf-8") + "&" +
+                    "translation=" + java.net.URLEncoder.encode(translation, "utf-8") );
 
             System.out.println(account+"jihao"+word+translation);
             //接收servlet返回值，是字节
@@ -57,13 +58,13 @@ public class SubMyTrans {
 
 
     //主方法用于测试
-/*
+
     public static void main(String[] args){
 
-        new SubMyTrans("111","word","danci").submit();
+        new SubMyTrans("111","page","页面").submit();
         //System.out.println(All);
 
     }
-*/
+
 
 }

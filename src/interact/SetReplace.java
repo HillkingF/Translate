@@ -21,11 +21,10 @@ public class SetReplace {
 
     public void submit(){
         try {
-            //1.获取账号、单词和提交的译文,account word translation 三个字符串在上面定义，是从外部获取到的
+            //1.获取账号、单词和提交的译文,account word translation 三个字符串在上面定义，是从外部获取到的   java.net.URLEncoder.encode(word, "utf-8")
 
             //2.传入含有中文字符的URL，需要将其进行编码
-            URL url = new URL(Constant.URL_LastReplace + "account=" + account + "&" +
-                                        "word=" + java.net.URLEncoder.encode(word,"utf-8") + "&" +
+            URL url = new URL(Constant.URL_LastReplace + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word,"utf-8") + "&" +
                                         "lastchoice=" + java.net.URLEncoder.encode(lastchoice,"utf-8"));
             System.out.println(lastchoice);
 
@@ -58,14 +57,14 @@ public class SetReplace {
     }
     //主方法用于测试能否从数据库中获得字符串，之后还要对字符串字段进行解析，以分割出翻译等
 
-    public static void main(String[] args){
+//    public static void main(String[] args){
+//
+//        new SetReplace("111","word","字母").submit();
+//        //System.out.println(All);
 
-        new SetReplace("111","word","字母").submit();
-        //System.out.println(All);
 
 
-
-    }
+//    }
 
 
 }

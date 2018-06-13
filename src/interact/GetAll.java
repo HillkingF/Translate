@@ -24,7 +24,7 @@ public class GetAll {
 
             //2.传入含有中文字符的URL，需要将其进行编码
             URL url = new URL(Constant.URL_GetAllInfo + "account=" + account + "&" +
-                    "word=" + word );
+                    "word=" + java.net.URLEncoder.encode(word, "utf-8") );
 
             //接收servlet返回值，是字节
             InputStream is = url.openStream();

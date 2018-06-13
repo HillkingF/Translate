@@ -200,6 +200,15 @@ public class YiwenPage{
 						myTranslate=myInput.getText();
 						myInput.setText("");
 
+
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								new SubMyTrans(account,w,myTranslate).submit();
+							}
+						});
+
+
 						System.out.println(account+w+myTranslate);
 
 
@@ -208,6 +217,7 @@ public class YiwenPage{
 					
 				}
         });
+
         d1.addWindowListener(new WindowAdapter() {
 	            public void windowClosing(WindowEvent evt) {
 	            
