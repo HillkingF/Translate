@@ -1,37 +1,30 @@
 package page;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.TextField;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import interact.SetReplace;
 import interact.SubMyTrans;
 
 public class YiwenPage{
 	JFrame  f = new JFrame("my window");// 创建窗体对象
 	JDialog d1 = new JDialog(f, "注释" , false);
-	String str;
+	String str;   //选择的译文
 
 	private String account_word;
 	private String account;
 
 	String myTranslate;
 	//子界面上方，显示单词
-	TextField tf=new TextField();
+	JTextArea tf=new JTextArea();
 	//子界面中间，显示译文
 	Box vbox=Box.createVerticalBox();
+	JScrollPane sp=new JScrollPane ();
 		//(1)金山词霸译文
 		Border lb = BorderFactory.createLineBorder(Color.GRAY, 5);
 		TitledBorder tb1 = new TitledBorder(lb , "金山词霸翻译", TitledBorder.CENTER ,
@@ -59,16 +52,28 @@ public class YiwenPage{
 	Button b3=new Button("create");
 
 	public void init() {
+		//设置图标
+		String path="/img/logal.png";
+		Toolkit tool=d1.getToolkit(); //得到一个Toolkit对象
+		Image myimage=tool.getImage(this.getClass().getResource(path)); //由tool获取图像
+		d1.setIconImage(myimage);
 		 //设置边框与标题
 		 tt.setBorder(tb1);
 		 myBox.setBorder(tb2);
 		 telse.setBorder(tb3);
 		 tlast.setBorder(tb4);
 		 //设置自动换行
+		 tf.setLineWrap(true);
 		 tt.setLineWrap(true);
 		 tmy.setLineWrap(true);
 		 telse.setLineWrap(true);
 		 tlast.setLineWrap(true);
+		//设置不可编辑
+		tf.setEditable(false);
+		tt.setEditable(false);
+		tmy.setEditable(false);
+		telse.setEditable(false);
+		tlast.setEditable(false);
 		 //在布局中安排各组件顺序
 		 myBox.add(myInput);
 		 myBox.add(tmy);
@@ -80,20 +85,25 @@ public class YiwenPage{
 		 vbox.createHorizontalStrut(5);
 		 vbox.add(tlast);
 		 vbox.createHorizontalStrut(5);
-		 //子界面下方功能区按钮
+		sp.setViewportView(vbox);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+		//子界面下方功能区按钮
 		 box.add(b1);
 		 box.add(b2);
 		 box.add(b3);
 		 //子界面对话框设置布局
 		 d1.setBounds(100 , 100 , 500, 700);
 		 d1.getContentPane().add(tf,BorderLayout.PAGE_START);
-		 d1.getContentPane().add(vbox,BorderLayout.CENTER);
+		 d1.getContentPane().add(sp,BorderLayout.CENTER);
 		 d1.getContentPane().add(box,BorderLayout.PAGE_END);   
 	     d1.setVisible(false);
 		}
 	 //设置子界面显示译文
 	public void display(String account,String word,String translateJS,String translateMy,String translateElse,String translateLast ) {
-		 init();	
+
+	    init();
 		 if(word!=null) {
 		 	 this.account=account;
 			 this.account_word=word;
@@ -103,17 +113,17 @@ public class YiwenPage{
 			 //显示输出单词
 			 tf.setText(word);
 			 //显示金山词霸的翻译
-			 if(translateJS!=null) tt.setText(translateJS);
-			 else tt.setText("未查询到翻译结果");
+			 if(translateJS.equals("")||(translateJS==null)) tt.setText("未查询到翻译结果");
+			 else tt.setText(translateJS);
 			 //显示自定义的译文
-			 if(translateMy!=null) tmy.setText(translateMy);
-			 else tmy.setText("用户未曾自定义此单词的翻译");
+			 if(translateMy.equals("")||(translateMy!=null)) tmy.setText("用户未曾自定义此单词的翻译");
+			 else tmy.setText(translateMy);
 			 //显示其他用户的译文
-			 if(translateElse!=null) telse.setText(translateElse);
-			 else telse.setText("未查询到其他用户的 翻译");
+			 if(translateElse.equals("")||(translateElse!=null)) telse.setText("未查询到其他用户的翻译");
+			 else telse.setText(translateElse);
 			 //显示上一次替换的译文
-			 if(translateLast!=null) tlast.setText(translateLast);
-			 else tlast.setText("未选择过此单词的翻译");
+			 if(translateLast.equals("")||(translateLast!=null)) tlast.setText("未选择过此单词的翻译");
+			 else tlast.setText(translateLast);
 			}
 	 }
 	 //设置按钮监听器
@@ -142,6 +152,8 @@ public class YiwenPage{
 					int j=i+str.length();
 					ta.replaceSelection(str);
 					ta.select(i, j);
+					new SetReplace(account,account_word,str).run();
+
 				}	
     	 });
 
@@ -163,7 +175,6 @@ public class YiwenPage{
 
 						new SubMyTrans(account,account_word,myTranslate).run();
 
-						//System.out.println(account+account_word+myTranslate);
 					}
 				}
          });

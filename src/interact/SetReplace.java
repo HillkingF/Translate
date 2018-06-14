@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class SetReplace {
+public class SetReplace extends Thread{
     private String account;
     private String word;
     private String lastchoice;
@@ -19,7 +19,8 @@ public class SetReplace {
         this.lastchoice = lastchoice;
     }
 
-    public void submit(){
+    @Override
+    public void run(){
         try {
             //1.获取账号、单词和提交的译文,account word translation 三个字符串在上面定义，是从外部获取到的   java.net.URLEncoder.encode(word, "utf-8")
 
@@ -27,6 +28,7 @@ public class SetReplace {
             URL url = new URL(Constant.URL_LastReplace + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word,"utf-8") + "&" +
                                         "lastchoice=" + java.net.URLEncoder.encode(lastchoice,"utf-8"));
             System.out.println(lastchoice);
+
 
             //接收servlet返回值，是字节
             InputStream is = url.openStream();
