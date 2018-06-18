@@ -11,9 +11,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.Expression;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
@@ -24,6 +27,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -178,11 +182,7 @@ private void myEvent() {
 
 
 
-            	//s1金山词霸的翻译
-
-            	String s2="";		
-            	String s3="其他用户的翻译";
-            	String s4="上一次选中的翻译";
+           
 
             	//获取用户的全部信息
         		if(word!=null) {
@@ -196,7 +196,7 @@ private void myEvent() {
                         lastchoice=allTranslation[0];
                         selftrans=allTranslation[1];
                         othertrans = allTranslation[2];
-                        System.out.println("jian"+othertrans);
+                      //  System.out.println("Home:"+othertrans);
                     }catch(InterruptedException|ExecutionException e1){
                         e1.printStackTrace();
                     }
@@ -221,9 +221,9 @@ private void myEvent() {
         String content = txt.getText();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter1 = new FileNameExtensionFilter("word(*.doc)", "doc");
-        FileNameExtensionFilter filter2 = new FileNameExtensionFilter("word(*.docx)", "docx");
+        
         chooser.setFileFilter(filter1);
-        chooser.setFileFilter(filter2);
+     
     
         int res =chooser.showSaveDialog(null);
         if(res == JFileChooser.APPROVE_OPTION){
@@ -328,18 +328,39 @@ public String readWord(String path) {
     String buffer = "";
     try {  
         if (path.endsWith(".doc")) {
-            FileInputStream fis = new FileInputStream(path);
-            HWPFDocument doc = new HWPFDocument(fis);
-            buffer = doc.getDocumentText();
-            doc.close();
-            fis.close();
+        	FileInputStream fis = null;
+        	try {
+        		 fis = new FileInputStream(path);
+                InputStreamReader reader = new InputStreamReader(fis,"utf-8"); //最后的"GBK"根据文件属性而定，如果不行，改成"UTF-8"试试
+                BufferedReader br = new BufferedReader(reader);
+                String line;
+                while ((line = br.readLine()) != null) {
+                   // System.out.println(line);
+                    buffer=buffer+line;
+                }
+                br.close();
+                reader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         } else if (path.endsWith("docx")) {
             FileInputStream fis = new FileInputStream(path);
+           
             XWPFDocument xdoc = new XWPFDocument(fis);
             XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
             buffer = extractor.getText();
             extractor.close();
             fis.close();
+        	
+       
         } else {  
             System.out.println("此文件不是word文件！");
         }

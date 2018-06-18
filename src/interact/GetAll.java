@@ -78,26 +78,28 @@ public class GetAll implements Callable<String>{
                 othertrans = mothertrans.group(3);
                 }
 
-                if(!othertrans.equals("")&&(othertrans!=null)){
+                if(othertrans.equals("")||(othertrans==null)){ }
+                else
+                {
                     //System.out.println("---"+othertrans);
                     String[] allothertran = othertrans.split("<span>");
                     for(int i = 0; i<allothertran.length; i++){
-                        if((allothertrans!=null)&&(!allothertrans.equals(""))){
-                            allothertrans = allothertrans+allothertran[i]+";";
-                        }else{
+                       
+                    	if((allothertrans==null)||(allothertrans.equals(""))){
                             allothertrans=allothertran[i]+";";
+                        }else{
+                        	allothertrans = allothertrans+allothertran[i]+";";
 
                         }
+                       
 
                     }
-                }else{
-
                 }
 
 
                 //封装所有的字符串信息
                 allInfomation = lastchoice+","+selftrans+","+allothertrans;
-                System.out.println(allothertrans+",");
+            //    System.out.println("GetAll:"+allothertrans);
 
 
             } else if (sb.toString().equals(Constant.FLAG_FAIL)) {

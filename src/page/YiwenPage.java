@@ -105,7 +105,7 @@ public class YiwenPage{
 
 	    init();
 		 if(word!=null) {
-		     System.out.println("yiw:"+translateLast);
+		     //System.out.println("yiw:"+translateElse+"----");
 		 	 this.account=account;
 			 this.account_word=word;
 			 //显示子界面
@@ -113,18 +113,22 @@ public class YiwenPage{
 			 d1.setVisible(true);
 			 //显示输出单词
 			 tf.setText(word);
+			 
 			 //显示金山词霸的翻译
 			 if(translateJS.equals("")||(translateJS==null)) tt.setText("未查询到翻译结果");
 			 else tt.setText(translateJS);
 			 //显示自定义的译文
-			 if(translateMy.equals("")||(translateMy==null)) tmy.setText("用户未曾自定义此单词的翻译");
+			 if(translateMy.equals("")||(translateMy==null)||translateMy.equals("null")) tmy.setText("用户未曾自定义此单词的翻译");
 			 else tmy.setText(translateMy);
 			 //显示其他用户的译文
-			 if(translateElse.equals("")||(translateElse==null)) telse.setText("未查询到其他用户的翻译");
+			 if((translateElse==null)||translateElse.equals("")||translateElse.equals("null")) telse.setText("未查询到其他用户的翻译"); 
 			 else telse.setText(translateElse);
 			 //显示上一次替换的译文
-			 if(translateLast.equals("")||(translateLast==null)) tlast.setText("未选择过此单词的翻译");
+			 if(translateLast.equals("")||(translateLast==null)||translateLast.equals("null")) tlast.setText("未选择过此单词的翻译");
 			 else tlast.setText(translateLast);
+			 
+			
+			 
 			}
 	 }
 	 //设置按钮监听器
